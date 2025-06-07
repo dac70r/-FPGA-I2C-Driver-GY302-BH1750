@@ -1,0 +1,19 @@
+
+State Machine - |I2C_BH1750|presentState
+Name presentState.STOP_READ_STABLE presentState.STOP_READ_READY presentState.STOP_READ presentState.READ presentState.START_READ_STABLE presentState.START_READ_READY presentState.START_READ presentState.STOP_WR_STABLE presentState.STOP_WR_READY presentState.STOP_WR presentState.WRITE presentState.START_WR_STABLE presentState.START_WR_READY presentState.START_WR presentState.WAIT_RDWR presentState.RESET 
+presentState.RESET 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+presentState.WAIT_RDWR 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 
+presentState.START_WR 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 1 
+presentState.START_WR_READY 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 1 
+presentState.START_WR_STABLE 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 1 
+presentState.WRITE 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 1 
+presentState.STOP_WR 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 1 
+presentState.STOP_WR_READY 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 1 
+presentState.STOP_WR_STABLE 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 1 
+presentState.START_READ 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 1 
+presentState.START_READ_READY 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 1 
+presentState.START_READ_STABLE 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 1 
+presentState.READ 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 1 
+presentState.STOP_READ 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 1 
+presentState.STOP_READ_READY 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+presentState.STOP_READ_STABLE 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 

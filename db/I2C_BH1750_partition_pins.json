@@ -1,0 +1,225 @@
+{
+	"partitions" : [
+		{
+			"name" : "Top",
+			"pins" : [
+				{
+					"name" : "I2C_SCLK",
+					"strict" : false
+				},
+				{
+					"name" : "I2C_SCLK_Ref",
+					"strict" : false
+				},
+				{
+					"name" : "I2C_SCLK_Ref_200k",
+					"strict" : false
+				},
+				{
+					"name" : "presentState_output[0]",
+					"strict" : false
+				},
+				{
+					"name" : "presentState_output[1]",
+					"strict" : false
+				},
+				{
+					"name" : "presentState_output[2]",
+					"strict" : false
+				},
+				{
+					"name" : "presentState_output[3]",
+					"strict" : false
+				},
+				{
+					"name" : "i2c_clock_cycles_output[0]",
+					"strict" : false
+				},
+				{
+					"name" : "i2c_clock_cycles_output[1]",
+					"strict" : false
+				},
+				{
+					"name" : "i2c_clock_cycles_output[2]",
+					"strict" : false
+				},
+				{
+					"name" : "i2c_clock_cycles_output[3]",
+					"strict" : false
+				},
+				{
+					"name" : "i2c_clock_cycles_output[4]",
+					"strict" : false
+				},
+				{
+					"name" : "i2c_clock_cycles_output[5]",
+					"strict" : false
+				},
+				{
+					"name" : "i2c_bit_count_output[0]",
+					"strict" : false
+				},
+				{
+					"name" : "i2c_bit_count_output[1]",
+					"strict" : false
+				},
+				{
+					"name" : "i2c_bit_count_output[2]",
+					"strict" : false
+				},
+				{
+					"name" : "i2c_bit_count_output[3]",
+					"strict" : false
+				},
+				{
+					"name" : "i2c_bit_count_output[4]",
+					"strict" : false
+				},
+				{
+					"name" : "sda_out_en_output",
+					"strict" : false
+				},
+				{
+					"name" : "counter_last_output[0]",
+					"strict" : false
+				},
+				{
+					"name" : "counter_last_output[1]",
+					"strict" : false
+				},
+				{
+					"name" : "counter_last_output[2]",
+					"strict" : false
+				},
+				{
+					"name" : "counter_last_output[3]",
+					"strict" : false
+				},
+				{
+					"name" : "counter_last_output[4]",
+					"strict" : false
+				},
+				{
+					"name" : "counter_last_output[5]",
+					"strict" : false
+				},
+				{
+					"name" : "counter_last_output[6]",
+					"strict" : false
+				},
+				{
+					"name" : "counter_last_output[7]",
+					"strict" : false
+				},
+				{
+					"name" : "counter_last_output[8]",
+					"strict" : false
+				},
+				{
+					"name" : "counter_last_output[9]",
+					"strict" : false
+				},
+				{
+					"name" : "counter_last_output[10]",
+					"strict" : false
+				},
+				{
+					"name" : "counter_last_output[11]",
+					"strict" : false
+				},
+				{
+					"name" : "counter_last_output[12]",
+					"strict" : false
+				},
+				{
+					"name" : "counter_last_output[13]",
+					"strict" : false
+				},
+				{
+					"name" : "counter_last_output[14]",
+					"strict" : false
+				},
+				{
+					"name" : "counter_last_output[15]",
+					"strict" : false
+				},
+				{
+					"name" : "counter_last_output[16]",
+					"strict" : false
+				},
+				{
+					"name" : "counter_last_output[17]",
+					"strict" : false
+				},
+				{
+					"name" : "counter_last_output[18]",
+					"strict" : false
+				},
+				{
+					"name" : "counter_last_output[19]",
+					"strict" : false
+				},
+				{
+					"name" : "counter_last_output[20]",
+					"strict" : false
+				},
+				{
+					"name" : "counter_last_output[21]",
+					"strict" : false
+				},
+				{
+					"name" : "counter_last_output[22]",
+					"strict" : false
+				},
+				{
+					"name" : "counter_last_output[23]",
+					"strict" : false
+				},
+				{
+					"name" : "counter_last_output[24]",
+					"strict" : false
+				},
+				{
+					"name" : "counter_last_output[25]",
+					"strict" : false
+				},
+				{
+					"name" : "counter_last_output[26]",
+					"strict" : false
+				},
+				{
+					"name" : "counter_last_output[27]",
+					"strict" : false
+				},
+				{
+					"name" : "counter_last_output[28]",
+					"strict" : false
+				},
+				{
+					"name" : "counter_last_output[29]",
+					"strict" : false
+				},
+				{
+					"name" : "counter_last_output[30]",
+					"strict" : false
+				},
+				{
+					"name" : "counter_last_output[31]",
+					"strict" : false
+				},
+				{
+					"name" : "I2C_SDA",
+					"strict" : false
+				},
+				{
+					"name" : "system_clock",
+					"strict" : false
+				},
+				{
+					"name" : "reset_n",
+					"strict" : false
+				}
+			]
+		}
+	]
+}

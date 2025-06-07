@@ -1,0 +1,271 @@
+`timescale 1ns / 1ps
+//////////////////////////////////////////////////////////////////////////////////
+// Engineer: Dennis Wong Guan Ming
+// Create Date: 06/02/2025 03:17:47 PM
+// Design Name: 
+// Module Name: I2C_BH1750
+// Project Name: 
+// 
+//////////////////////////////////////////////////////////////////////////////////
+module I2C_BH1750(
+    input   system_clock,
+    input   reset,
+    output  led,
+    output  I2C_SCLK,                       // the SCLK Signal, only triggered when condition is met
+    inout   I2C_SDA,                        // the actual SDA signal
+    output  I2C_SDA_Read,                   // the data from SDA when it is in READ Mode
+    output  I2C_SCLK_Ref,                   // Reference Clock
+    output  I2C_SCLK_Ref_200k,              // Reference Clock 200khz
+    output  [3:0] presentState_output,
+    output  [7:0] i2c_clock_cycles_output,
+    output  [7:0] i2c_bit_count_output           
+);
+
+// I2C Address for BH1750 - GY302
+localparam  address_8_bit               = 8'b0010_0011; // included for  completeness
+localparam  address_7_bit               = 7'b010_0011;  // actually used
+localparam  write_bit                   = 1'b0;
+localparam  read_bit                    = 1'b1;
+localparam  ACK                         = 1'b0;
+
+// States Machine States
+localparam RESET                        = 5'd0;
+localparam WAIT_RDWR                    = 5'd1;
+localparam START_WR        				= 5'd2;
+localparam START_WR_READY               = 5'd3; 
+localparam START_WR_STABLE              = 5'd4;   
+localparam WRITE      				    = 5'd5;
+localparam STOP_WR                      = 5'd6;
+localparam STOP_WR_READY                = 5'd7;
+localparam STOP_WR_STABLE               = 5'd8;
+/*
+localparam START_READ                   = 5'd5;
+localparam READ                         = 5'd7;
+localparam STOP_READ                    = 5'd8;*/
+   
+// Counters and Registers
+reg [31:0] count            = 32'd0;            // Generating Clock to drive State Machines
+reg [31:0] count_2          = 32'd0;            // Generating Clock to drive State Machines
+reg i2c_sclk_local          = 1'b1;             // The state of the Clock (HIGH/LOW)
+reg i2c_sclk_local_200khz   = 1'b1;             // The state of the Clock (HIGH/LOW)
+reg clock_polarity          = 1'b0;             // The state of the LED 
+reg [3:0] presentState      = RESET;            // State Machine States 
+reg [3:0] nextState         = RESET;            // State Machine States 
+reg i2c_sclk_local_output   = 1'b1;             // The state of I2C_SCLK, used in State Machine Output Logic
+reg i2c_sda_local           = 1'b1;             // The state of I2C_SDA, used in State Machine Output Logic
+reg sda_out_en              = 1'b1;             // The SDA_OUT_EN Signal, On for SDA Output to slave, Off for SDA Input from slave
+
+// COMMANDS
+reg [7:0] write_command = {7'b0100_011, 1'b0};  // Concatenate 0x23 and Write bit: 0
+
+// Creates a 100kHz clock for I2C SCLK
+always @ (posedge system_clock)
+begin
+    if(count == 500)
+    begin
+         i2c_sclk_local <= ~i2c_sclk_local;
+         count <= 32'd1;
+    end
+    else
+        count <= count + 32'd1;
+end
+
+// Creates a 200kHz clock for I2C SCLK
+always @ (posedge system_clock)
+begin
+    if(count_2 == 250)
+    begin
+         i2c_sclk_local_200khz <= ~i2c_sclk_local_200khz;
+         count_2 <= 32'd1;
+    end
+    else
+        count_2 <= count_2 + 32'd1;
+end
+
+// This always block generates the i2c_counter
+reg [31:0]  i2c_counter         = 32'd0;            // Generating Clock to keep track of number of Clock Cycles elapsed
+reg [7:0]   i2c_clock_cycles    = 8'd0;             // Register for keeping track of number of Clock Cycles elapsed
+
+// This always block generates the I2C_SCLK
+reg         i2c_sclk_state      = 1'd0;             // The state of the Clock (HIGH/LOW)
+
+// This always block generates the I2C_SDA
+reg         i2c_sda_state       = 1'd0;             // The state of the Clock (HIGH/LOW)
+
+// State Machine Next State Logic 
+always @ (posedge i2c_sclk_local_200khz)
+begin
+    if(reset)
+        presentState <= RESET;
+    else
+        presentState <= nextState;
+end
+
+// I2C_SDA 
+always @ (*) // i2c_sclk_local
+begin
+    case(presentState)
+        RESET:
+            i2c_sda_state = 'd1;
+        WAIT_RDWR:
+            i2c_sda_state = i2c_sda_state;
+        START_WR:
+            i2c_sda_state = 'd0;
+        START_WR_READY:
+            i2c_sda_state = i2c_sda_state;
+        START_WR_STABLE:
+            i2c_sda_state = i2c_sda_state;
+        WRITE: begin
+            case(i2c_clock_cycles)
+                0: begin i2c_sda_state = write_command[7];sda_out_en = 'd1; end
+                1: i2c_sda_state = write_command[7];
+                2: i2c_sda_state = write_command[6];
+                3: i2c_sda_state = write_command[6];
+                4: i2c_sda_state = write_command[5];
+                5: i2c_sda_state = write_command[5];
+                6: i2c_sda_state = write_command[4];
+                7: i2c_sda_state = write_command[4];
+                8: i2c_sda_state = write_command[3];
+                9: i2c_sda_state = write_command[3];
+                10: i2c_sda_state = write_command[2];
+                11: i2c_sda_state = write_command[2];
+                12: i2c_sda_state = write_command[1];
+                13: i2c_sda_state = write_command[1];
+                14: i2c_sda_state = write_command[0];
+                15: i2c_sda_state = write_command[0];
+                16: begin sda_out_en = 'd0;  i2c_sda_state = I2C_SDA; end // Not applicable
+                17: begin sda_out_en = 'd0;  i2c_sda_state = I2C_SDA; end // Not applicable
+                default:
+                    i2c_sda_state = 'd1;
+            endcase
+        end
+        STOP_WR:begin
+                sda_out_en      = 'd1;
+                i2c_sda_state   = 'd0;
+            end
+        STOP_WR_READY: 
+                i2c_sda_state = 'd0;
+        STOP_WR_STABLE:
+            i2c_sda_state = 'd1;
+        default:
+            i2c_sda_state = 'd1;
+        endcase
+end
+
+// State Machine Output Logic (Sequential)
+always @ (posedge i2c_sclk_local_200khz) // i2c_sclk_local
+begin
+    case(presentState)
+        RESET:
+            begin 
+                i2c_sda_local           <= 1'd1; 
+                i2c_sclk_local_output   <= 1'd1;
+            end
+        WAIT_RDWR: 
+            begin 
+                i2c_sda_local           <= 1'd1;
+                i2c_sclk_local_output   <= 1'd1; 
+            end
+        START_WR:                                                       // SDA: deasseted, SCLK: asserted 
+            begin                                                       // Creates the Start Condition
+                i2c_sda_local           <= 1'd0;
+                i2c_sclk_local_output   <= 1'd1;
+            end
+        START_WR_READY:                                                // SDA: deasseted, SCLK: deasserted 
+            begin                                                       // Creates the Start Condition
+                i2c_sda_local           <= 1'd0;
+                i2c_sclk_local_output   <= 1'd0;
+            end
+        START_WR_STABLE:                                                // SDA: deasseted, SCLK: deasserted 
+            begin                                                       // Creates the Start Condition
+                i2c_sda_local           <= i2c_sda_local;
+                i2c_sclk_local_output   <= i2c_sclk_local_output;
+            end
+        WRITE:
+            begin
+                i2c_clock_cycles        <= (i2c_clock_cycles + 'd1) % 18;
+                i2c_sda_local           <= i2c_sda_state;
+                /*
+                case(i2c_clock_cycles)
+                    0: i2c_sda_local           <= 'd0;
+                    1: i2c_sda_local           <= 'd1;
+                    2: i2c_sda_local           <= 'd0;
+                    3: i2c_sda_local           <= 'd1;
+                    default:
+                        i2c_sda_local           <= 'd0;
+                endcase
+                if()*/
+                i2c_sclk_local_output   <= ~i2c_sclk_local_output;
+            end  
+        STOP_WR: 
+            begin
+                i2c_sda_local           <= 1'd0; 
+                i2c_sclk_local_output   <= 1'd1; 
+            end
+        STOP_WR_READY: 
+            begin
+                i2c_sda_local           <= 1'd1; 
+                i2c_sclk_local_output   <= 1'd1; 
+            end
+        STOP_WR_STABLE: 
+            begin
+                i2c_sda_local           <= i2c_sda_local; 
+                i2c_sclk_local_output   <= i2c_sclk_local_output; 
+            end
+        default:
+            begin 
+                i2c_sda_local           <= 1'd1; 
+                i2c_sclk_local_output   <= 1'd1; 
+            end
+    endcase
+end
+
+// State Machine Transition Logic (Combinational)
+always @ (*)
+begin 
+    case(presentState)
+        RESET:
+            nextState = WAIT_RDWR;
+        WAIT_RDWR: 
+            begin 
+                nextState = START_WR;
+            end
+        START_WR:
+            nextState = START_WR_READY;
+        START_WR_READY:
+            nextState = START_WR_STABLE;
+        START_WR_STABLE:
+            nextState = WRITE;
+        WRITE:                                                             // For TX: Send Address followed by writedata
+            if(i2c_clock_cycles == (17))
+                nextState = STOP_WR;
+            else
+                nextState = WRITE;
+        STOP_WR:
+            nextState = STOP_WR_READY;
+        STOP_WR_READY:
+            nextState = STOP_WR_STABLE;
+        STOP_WR_STABLE:
+            nextState = WAIT_RDWR;
+        default:
+            nextState = RESET;
+    endcase
+end
+
+assign I2C_SCLK     = i2c_sclk_local_output;
+
+// Assign SDA line with tri-state buffer logic
+assign I2C_SDA      = sda_out_en ? i2c_sda_state : 1'bz;
+
+assign I2C_SCLK_Ref = i2c_sclk_local;
+assign I2C_SCLK_Ref_200k = i2c_sclk_local_200khz;
+
+// Debug by Dennis
+assign presentState_output = presentState;
+assign i2c_clock_cycles_output = i2c_clock_cycles;
+assign i2c_bit_count_output = i2c_clock_cycles / 'd2;
+
+// Heartbeat
+assign led = clock_polarity;
+
+endmodule

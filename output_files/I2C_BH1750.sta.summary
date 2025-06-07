@@ -1,0 +1,113 @@
+------------------------------------------------------------
+Timing Analyzer Summary
+------------------------------------------------------------
+
+Type  : Slow 1200mV 100C Model Setup 'i2c_sclk_local_200khz'
+Slack : -7.928
+TNS   : -188.445
+
+Type  : Slow 1200mV 100C Model Setup 'i2c_clock_cycles[1]'
+Slack : -4.274
+TNS   : -4.274
+
+Type  : Slow 1200mV 100C Model Setup 'system_clock'
+Slack : -3.705
+TNS   : -141.011
+
+Type  : Slow 1200mV 100C Model Hold 'i2c_clock_cycles[1]'
+Slack : 0.162
+TNS   : 0.000
+
+Type  : Slow 1200mV 100C Model Hold 'i2c_sclk_local_200khz'
+Slack : 0.393
+TNS   : 0.000
+
+Type  : Slow 1200mV 100C Model Hold 'system_clock'
+Slack : 0.418
+TNS   : 0.000
+
+Type  : Slow 1200mV 100C Model Minimum Pulse Width 'i2c_sclk_local_200khz'
+Slack : -3.210
+TNS   : -73.885
+
+Type  : Slow 1200mV 100C Model Minimum Pulse Width 'i2c_clock_cycles[1]'
+Slack : -3.210
+TNS   : -24.723
+
+Type  : Slow 1200mV 100C Model Minimum Pulse Width 'system_clock'
+Slack : -3.000
+TNS   : -86.525
+
+Type  : Slow 1200mV -40C Model Setup 'i2c_sclk_local_200khz'
+Slack : -6.680
+TNS   : -159.980
+
+Type  : Slow 1200mV -40C Model Setup 'i2c_clock_cycles[1]'
+Slack : -3.536
+TNS   : -3.536
+
+Type  : Slow 1200mV -40C Model Setup 'system_clock'
+Slack : -3.182
+TNS   : -111.398
+
+Type  : Slow 1200mV -40C Model Hold 'i2c_clock_cycles[1]'
+Slack : 0.168
+TNS   : 0.000
+
+Type  : Slow 1200mV -40C Model Hold 'system_clock'
+Slack : 0.344
+TNS   : 0.000
+
+Type  : Slow 1200mV -40C Model Hold 'i2c_sclk_local_200khz'
+Slack : 0.345
+TNS   : 0.000
+
+Type  : Slow 1200mV -40C Model Minimum Pulse Width 'i2c_sclk_local_200khz'
+Slack : -3.210
+TNS   : -73.885
+
+Type  : Slow 1200mV -40C Model Minimum Pulse Width 'i2c_clock_cycles[1]'
+Slack : -3.210
+TNS   : -23.566
+
+Type  : Slow 1200mV -40C Model Minimum Pulse Width 'system_clock'
+Slack : -3.000
+TNS   : -86.525
+
+Type  : Fast 1200mV -40C Model Setup 'i2c_sclk_local_200khz'
+Slack : -3.144
+TNS   : -60.789
+
+Type  : Fast 1200mV -40C Model Setup 'i2c_clock_cycles[1]'
+Slack : -1.891
+TNS   : -1.891
+
+Type  : Fast 1200mV -40C Model Setup 'system_clock'
+Slack : -1.195
+TNS   : -30.850
+
+Type  : Fast 1200mV -40C Model Hold 'i2c_sclk_local_200khz'
+Slack : 0.032
+TNS   : 0.000
+
+Type  : Fast 1200mV -40C Model Hold 'i2c_clock_cycles[1]'
+Slack : 0.040
+TNS   : 0.000
+
+Type  : Fast 1200mV -40C Model Hold 'system_clock'
+Slack : 0.180
+TNS   : 0.000
+
+Type  : Fast 1200mV -40C Model Minimum Pulse Width 'system_clock'
+Slack : -3.000
+TNS   : -80.471
+
+Type  : Fast 1200mV -40C Model Minimum Pulse Width 'i2c_sclk_local_200khz'
+Slack : -3.000
+TNS   : -58.000
+
+Type  : Fast 1200mV -40C Model Minimum Pulse Width 'i2c_clock_cycles[1]'
+Slack : -3.000
+TNS   : -18.937
+
+------------------------------------------------------------

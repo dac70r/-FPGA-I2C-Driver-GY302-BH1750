@@ -1,0 +1,14 @@
+Analysis & Synthesis Status : Successful - Sun Jun  8 02:22:34 2025
+Quartus Prime Version : 23.1std.0 Build 991 11/28/2023 SC Lite Edition
+Revision Name : I2C_BH1750
+Top-level Entity Name : I2C_BH1750
+Family : Cyclone 10 LP
+Total logic elements : 273
+    Total combinational functions : 272
+    Dedicated logic registers : 120
+Total registers : 120
+Total pins : 62
+Total virtual pins : 0
+Total memory bits : 0
+Embedded Multiplier 9-bit elements : 0
+Total PLLs : 0
