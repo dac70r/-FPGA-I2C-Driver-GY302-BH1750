@@ -13,3 +13,4 @@ Dennis Wong Guan Ming
 This project is licensed under the MIT License.  
 
 ## Simulation Results
+![Image](https://github.com/user-attachments/assets/a9e581d1-b8bb-42b9-8ae2-5e0c25ea60ff)
