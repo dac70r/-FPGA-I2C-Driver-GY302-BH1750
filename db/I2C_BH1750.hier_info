@@ -140,6 +140,5 @@ counter_last_output[28] <= counter_last[28].DB_MAX_OUTPUT_PORT_TYPE
 counter_last_output[29] <= counter_last[29].DB_MAX_OUTPUT_PORT_TYPE
 counter_last_output[30] <= counter_last[30].DB_MAX_OUTPUT_PORT_TYPE
 counter_last_output[31] <= counter_last[31].DB_MAX_OUTPUT_PORT_TYPE
-ack_bit <= <GND>
 
 

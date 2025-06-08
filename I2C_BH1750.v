@@ -1,4 +1,4 @@
-// MIT License
+// The MIT License (MIT)
 // 
 // Copyright (c) 2025 Dennis Wong Guan Ming 
 // 
@@ -47,8 +47,7 @@ module I2C_BH1750(
 	 output			sda_out_en_output,					// Displays sda_out_en
 	 input			read_I2C_SDA,							// Probes the I2C_SDA Signal
 	 input			read_I2C_SCLK,							// Probes the I2C_SCLK Signal
-	 output  [31:0]counter_last_output,					// Counter for Delay after each I2C Read
-	 output  		reg ack_bit = 'd1						// NOT IN USE
+	 output  [31:0]counter_last_output					// Counter for Delay after each I2C Read
 );
 
 // States Machine States
@@ -70,8 +69,8 @@ localparam STOP_READ_READY              = 5'd14;
 localparam STOP_READ_STABLE             = 5'd15;
    
 // Counters and Registers
-reg [3:0] 	presentState      		= RESET;            	// State Machine States 
-reg [3:0] 	nextState         		= RESET;            	// State Machine States 
+  reg [3:0] 	presentState      		= RESET;            	// State Machine States 
+  reg [3:0] 	nextState         		= RESET;            	// State Machine States 
 reg [31:0] 	count            			= 32'd0;            	// Generating 100khz Clock for Reference
 reg [31:0] 	count_2         			= 32'd0;            	// Generating 200khz Clock to drive State Machines
 reg 			i2c_sclk_local          = 1'b1;             	// The state of the Clock 100khz (HIGH/LOW)
@@ -90,7 +89,7 @@ reg [7:0] write_configuration = 8'h11;
 // Creates a 100kHz clock for I2C SCLK
 always @ (posedge system_clock)
 begin
-    if(count == 500)
+    if(count == 50)
     begin
          i2c_sclk_local <= ~i2c_sclk_local;
          count <= 32'd1;
@@ -102,7 +101,7 @@ end
 // Creates a 200kHz clock for I2C SCLK
 always @ (posedge system_clock)
 begin
-    if(count_2 == 250)
+    if(count_2 == 25)
     begin
          i2c_sclk_local_200khz <= ~i2c_sclk_local_200khz;
          count_2 <= 32'd1;
